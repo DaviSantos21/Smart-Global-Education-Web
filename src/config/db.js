@@ -8,18 +8,16 @@ const conexao = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT
-
+     
 });
 
-conexao.connect((erro) => {
+conexao.connect( (erro) => {
 if (erro){
+     console.log('Erro ao conectar:', erro);
+     return; 
+    } 
 
-    console.log('Erro ao conectar:', erro);
-    return; 
-
-}
-
-console.log('MySQL conectado!');
+   console.log('MySQL conectado!');
 
 
 });

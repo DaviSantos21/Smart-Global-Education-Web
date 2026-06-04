@@ -11,7 +11,8 @@ const alunoController = {
                 return res.status(500).json({
 
                     erro: 'Erro ao listar alunos'
-                });
+                    
+                }); 
             }
 
                     res.status(200).json(resultados);
@@ -77,6 +78,7 @@ const alunoController = {
 
                 mensagem: 'Aluno cadastrado com sucesso',
                 id: resultado.insertId
+                
             });
 
 
@@ -100,7 +102,7 @@ const alunoController = {
                 });
             }
 
-            if(resultado.affecteRows === 0) {
+            if(resultado.affectedRows === 0) {
 
                 return res.status(404).json({
                     erro: 'Aluno não encontrado'
@@ -127,7 +129,7 @@ const alunoController = {
                 });
             }
 
-            if(resultado.affecteRows === 0){
+            if(resultado.affectedRows === 0){
                 return res.status(404).json({
                     erro: 'Aluno não encontrado'
                 });

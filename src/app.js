@@ -2,17 +2,29 @@ const express = require ('express');
 
 const cors = require('cors');
 
-const app = express();
-
-app.use(express.json());
-
 require('./config/db');
-
-app.use(cors());
 
 const alunoRoutes = require('./routes/alunoRoutes');
 
+const turmaRoutes = require('./routes/turmaRoutes');
+
+const matriculaRoutes = require('./routes/matriculaRoutes');
+
+const mensagemRoutes = require('./routes/mensagemRoutes');
+
+const app = express();
+
+app.use(cors());
+
+app.use(express.json());
+
 app.use(alunoRoutes);
+
+app.use(turmaRoutes);
+
+app.use(matriculaRoutes);
+
+app.use(mensagemRoutes);
 
 app.get('/', (req, res) => {
 

@@ -17,13 +17,13 @@ async function listarAlunos() {
 
         listaAlunos.innerHTML += `
         
-        <div class="aluno">
+        <div class="aluno"> 
              <h3>${aluno.nome}</h3> 
              <p>Email: ${aluno.email}</p>
               <button onclick="deletarAluno(${aluno.id})"> 
                 Deletar </button> 
               
-              </div>;`
+              </div>`;
            
 
         
@@ -63,6 +63,7 @@ async function deletarAluno(id) {
     await fetch(`${API_URL}/${id}`, {
 
         method: 'DELETE'
+        
     });
 
     listarAlunos();

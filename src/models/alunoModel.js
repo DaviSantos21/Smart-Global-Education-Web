@@ -4,15 +4,16 @@ const Aluno = {
 
      listarTodos: (callback) => {
 
-        const sql = 'SELECT * FROM alunos';
-
-            
+        const sql = 'SELECT * FROM alunos'; 
 
         conexao.query(sql, callback);
+
+        
     },
     
     
     buscarPorId: (id, callback) => {
+        
         const sql = 'SELECT * FROM alunos WHERE id = ?';
 
         conexao.query(sql, [id], callback);
@@ -23,7 +24,7 @@ const Aluno = {
 
         const sql = 'INSERT INTO alunos (nome, email, data_nascimento) VALUES (?, ?, ?) ';
 
-        conexao.query( sql, [dados.nome, dados.email, dados.data_nascimento], callback);
+        conexao.query(sql, [dados.nome, dados.email, dados.data_nascimento], callback);
     
     },
 
