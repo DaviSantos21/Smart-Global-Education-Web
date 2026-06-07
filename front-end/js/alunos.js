@@ -26,6 +26,8 @@ async function carregarAlunos(){
 
                 <p>${aluno.email}</p>
 
+                <p>${aluno.idade}</p>
+
 
             </div>
 

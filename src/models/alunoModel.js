@@ -4,7 +4,7 @@ const Aluno = {
 
      listarTodos: (callback) => {
 
-        const sql = 'SELECT * FROM alunos'; 
+        const sql = 'SELECT *, TIMESTAMPDIFF(YEAR,data_nascimento,CURDATE()) AS idade FROM alunos'; 
 
         conexao.query(sql, callback);
 
@@ -14,7 +14,7 @@ const Aluno = {
     
     buscarPorId: (id, callback) => {
         
-        const sql = 'SELECT * FROM alunos WHERE id = ?';
+        const sql = 'SELECT *, TIMESTAMPDIFF(YEAR,data_nascimento,CURDATE()) AS idade FROM alunos WHERE id = ?';
 
         conexao.query(sql, [id], callback);
 
