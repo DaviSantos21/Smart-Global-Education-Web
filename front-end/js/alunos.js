@@ -28,6 +28,11 @@ async function carregarAlunos(){
 
                 <p>${aluno.idade}</p>
 
+                <br>
+
+                <button class="btn-excluir" onclick="excluirAluno(${aluno.id})">Excluir</button>
+
+                        <button onclick="atualizarAluno(${aluno.id})">Editar</button>
 
             </div>
 
@@ -78,11 +83,28 @@ formAluno.addEventListener(
 
         });
 
+        alert('Aluno cadastrado com sucesso.')
+
         formAluno.reset();
 
         carregarAlunos();
 
+
+
     }
 );
+
+async function excluirAluno(id){
+
+    await fetch(
+        `${API_ALUNOS}/${id}`,
+        {
+            method:'DELETE'
+        }
+    );
+
+    carregarAlunos();
+
+}
 
 carregarAlunos();

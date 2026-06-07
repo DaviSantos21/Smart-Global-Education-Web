@@ -57,6 +57,15 @@ body{
     margin-top:15px;
 
 
+}
 
+.btn-excluir {
+    padding: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    background: #f1f1f1;
+    overflow:auto;
 
+    
 }
