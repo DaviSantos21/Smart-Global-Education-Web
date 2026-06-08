@@ -1,6 +1,8 @@
 const API_ALUNOS =
 'http://localhost:3000/alunos';
 
+let alunoEditando = null;
+
 async function carregarAlunos(){
 
     const resposta =
@@ -32,7 +34,10 @@ async function carregarAlunos(){
 
                 <button class="btn-excluir" onclick="excluirAluno(${aluno.id})">Excluir</button>
 
-                        <button onclick="atualizarAluno(${aluno.id})">Editar</button>
+                        <button onclick="editarAluno(${aluno.id},
+                        '${aluno.nome}',
+                        '${aluno.email}',
+                        '${aluno.data_nascimento}')">Editar</button>
 
             </div>
 
@@ -69,6 +74,23 @@ formAluno.addEventListener(
                 ).value
         };
 
+        if(alunoEditando) {
+
+            await fetch(`${API_ALUNOS}/${alunoEditando}`, 
+                
+                {
+                    method: 'PUT',
+
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+
+                    body: JSON.stringify(aluno)
+                }
+            );
+
+        }
+
         await fetch(API_ALUNOS, {
 
             method: 'POST',
@@ -94,7 +116,27 @@ formAluno.addEventListener(
     }
 );
 
+function editarAluno(id, nome, email, data_nascimento){
+
+    alunoEditando = id;
+
+    document.getElementById('nome-aluno').valur = nome;
+
+    document.getElementById('email-aluno').value = email;
+
+    document.getElementById('data_nascimento-aluno').value = data_nascimento;
+
+    
+}
+
 async function excluirAluno(id){
+
+    const confirmar = confirm('Deseja excluir este aluno?');
+
+    if(!confirm){
+
+        return;
+    }
 
     await fetch(
         `${API_ALUNOS}/${id}`,
