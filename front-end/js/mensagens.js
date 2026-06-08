@@ -56,3 +56,44 @@ async(event)=>{
     .reset();
 
 });
+
+async function carregarMensagens(){
+
+    const resposta =
+        await fetch(API_MENSAGENS);
+
+    const mensagens =
+        await resposta.json();
+
+    const tabela =
+        document.getElementById(
+            'tabela-mensagens'
+        );
+
+    tabela.innerHTML = '';
+
+    mensagens.forEach(msg => {
+
+        tabela.innerHTML += `
+
+            <tr>
+
+                <td>${msg.nome}</td>
+
+                <td>${msg.assunto}</td>
+
+                <td>
+
+                    ${new Date(
+                        msg.data_envio
+                    ).toLocaleDateString()}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}

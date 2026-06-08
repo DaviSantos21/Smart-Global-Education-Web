@@ -55,6 +55,47 @@ async function carregarSelects(){
 
 }
 
+async function carregarMatriculas(){
+
+    const resposta =
+        await fetch(API_MATRICULAS);
+
+    const matriculas =
+        await resposta.json();
+
+    const tabela =
+        document.getElementById(
+            'tabela-matriculas'
+        );
+
+    tabela.innerHTML = '';
+
+    matriculas.forEach(m => {
+
+        tabela.innerHTML += `
+
+            <tr>
+
+                <td>${m.id}</td>
+
+                <td>${m.aluno}</td>
+
+                <td>${m.turma}</td>
+
+                <td>
+                    ${new Date(
+                        m.data_matricula
+                    ).toLocaleDateString()}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
 document
 .getElementById('form-matricula')
 .addEventListener(

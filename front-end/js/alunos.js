@@ -89,21 +89,33 @@ formAluno.addEventListener(
                 }
             );
 
+            alunoEditando = null;
+
         }
 
-        await fetch(API_ALUNOS, {
+        else{
 
-            method: 'POST',
+            await fetch(
 
-            headers: {
-                'Content-Type':
-                    'application/json'
-            },
+                API_ALUNOS,
 
-            body:
-                JSON.stringify(aluno)
+                {
 
-        });
+                    method:'POST',
+
+                    headers:{
+                        'Content-Type':
+                        'application/json'
+                    },
+
+                    body:
+                    JSON.stringify(aluno)
+
+                }
+
+            );
+
+        }
 
         alert('Aluno cadastrado com sucesso.')
 
