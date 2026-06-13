@@ -1,88 +1,101 @@
-const API_TURMAS =
-'http://localhost:3000/turmas';
+const API_TURMAS = 'http://localhost:3000/turmas';
 
-const formTurma =
-document.getElementById('form-turma');
+const formTurma = document.getElementById('form-turma');
 
 async function carregarTurmas(){
 
-    const resposta =
-    await fetch(API_TURMAS);
+    const lista = document.getElementById('lista-turmas');
 
-    const turmas =
-    await resposta.json();
+    try {
 
-    const lista =
-    document.getElementById(
-        'lista-turmas'
-    );
+        const resposta = await fetch(API_TURMAS);
 
-    lista.innerHTML = '';
+        if (!resposta.ok) {
+            throw new Error('Erro ao buscar turmas');
+        }
 
-    turmas.forEach(turma => {
+        const turmas = await resposta.json();
 
-        lista.innerHTML += `
+        lista.innerHTML = '';
 
-            <div class="card">
+        if (turmas.length === 0) {
 
-                <h3>${turma.nome}</h3>
+            lista.innerHTML = `<p>Nenhuma turma cadastrada.</p>`;
 
-                <p>${turma.turno}</p>
+            return;
 
-                <p>${turma.ano}</p>
+        }
 
-            </div>
+        turmas.forEach(turma => {
 
-        `;
+            lista.innerHTML += `
+                <div class="card">
+                    <h3>${turma.nome}</h3>
+                    <p>Turno: ${turma.turno}</p>
+                    <p>Ano: ${turma.ano}</p>
+                </div>
+            `;
 
-    });
+        });
+
+    } catch (erro) {
+
+        console.error('Erro ao carregar turmas:', erro);
+
+        lista.innerHTML = `<p>Erro ao carregar turmas. Tente novamente.</p>`;
+
+    }
 
 }
 
-formTurma.addEventListener(
-    'submit',
-    async(event)=>{
+formTurma.addEventListener('submit', async (event) => {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        const turma = {
+    const nome = document.getElementById('nome-turma').value.trim();
+    const turno = document.getElementById('turno-turma').value.trim();
+    const ano = document.getElementById('ano-turma').value;
 
-            nome:
-            document.getElementById(
-                'nome-turma'
-            ).value,
+    if (!nome || !turno || !ano) {
 
-            turno:
-            document.getElementById(
-                'turno-turma'
-            ).value,
+        alert('Preencha todos os campos.');
 
-            ano:
-            document.getElementById(
-                'ano-turma'
-            ).value
+        return;
 
-        };
+    }
 
-        await fetch(API_TURMAS,{
+    const turma = { nome, turno, ano };
 
-            method:'POST',
+    try {
 
-            headers:{
-                'Content-Type':
-                'application/json'
+        const resposta = await fetch(API_TURMAS, {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
             },
 
-            body:
-            JSON.stringify(turma)
+            body: JSON.stringify(turma)
 
         });
+
+        if (!resposta.ok) {
+            throw new Error('Erro ao cadastrar turma');
+        }
 
         formTurma.reset();
 
         carregarTurmas();
 
+    } catch (erro) {
+
+        console.error(erro);
+
+        alert('Não foi possível cadastrar a turma. Tente novamente.');
+
     }
-);
+
+});
 
 carregarTurmas();

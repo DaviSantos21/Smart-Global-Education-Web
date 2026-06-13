@@ -1,9 +1,21 @@
 function mostrar(id){
 
     document.querySelectorAll('.page')
-    .forEach(p => p.classList.add('hidden'));
+        .forEach(p => p.classList.add('hidden'));
 
     document.getElementById(id)
-    .classList.remove('hidden');
+        .classList.remove('hidden');
+
+    document.querySelectorAll('.sidebar button')
+        .forEach(btn => btn.classList.remove('ativo'));
+
+    document.querySelector(`.sidebar button[data-page="${id}"]`)
+        ?.classList.add('ativo');
 
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    mostrar('dashboard');
+
+});

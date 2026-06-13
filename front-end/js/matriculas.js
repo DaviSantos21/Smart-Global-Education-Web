@@ -1,137 +1,166 @@
-const API_MATRICULAS =
-'http://localhost:3000/matriculas';
+const API_MATRICULAS = 'http://localhost:3000/matriculas';
 
 async function carregarSelects(){
 
-    const alunos =
-    await fetch(
-        'http://localhost:3000/alunos'
-    );
+    const selectAluno = document.getElementById('aluno-select');
+    const selectTurma = document.getElementById('turma-select');
 
-    const turmas =
-    await fetch(
-        'http://localhost:3000/turmas'
-    );
+    try {
 
-    const listaAlunos =
-    await alunos.json();
+        const [alunosResp, turmasResp] = await Promise.all([
+            fetch('http://localhost:3000/alunos'),
+            fetch('http://localhost:3000/turmas')
+        ]);
 
-    const listaTurmas =
-    await turmas.json();
+        if (!alunosResp.ok || !turmasResp.ok) {
+            throw new Error('Erro ao buscar dados para os selects');
+        }
 
-    const selectAluno =
-    document.getElementById(
-        'aluno-select'
-    );
+        const listaAlunos = await alunosResp.json();
+        const listaTurmas = await turmasResp.json();
 
-    const selectTurma =
-    document.getElementById(
-        'turma-select'
-    );
+        selectAluno.innerHTML = '';
+        selectTurma.innerHTML = '';
 
-    selectAluno.innerHTML = '';
+        if (listaAlunos.length === 0) {
 
-    selectTurma.innerHTML = '';
+            selectAluno.innerHTML = `<option value="">Nenhum aluno cadastrado</option>`;
 
-    listaAlunos.forEach(aluno=>{
+        } else {
 
-        selectAluno.innerHTML += `
-            <option value="${aluno.id}">
-                ${aluno.nome}
-            </option>
-        `;
+            listaAlunos.forEach(aluno => {
 
-    });
+                selectAluno.innerHTML += `<option value="${aluno.id}">${aluno.nome}</option>`;
 
-    listaTurmas.forEach(turma=>{
+            });
 
-        selectTurma.innerHTML += `
-            <option value="${turma.id}">
-                ${turma.nome}
-            </option>
-        `;
+        }
 
-    });
+        if (listaTurmas.length === 0) {
+
+            selectTurma.innerHTML = `<option value="">Nenhuma turma cadastrada</option>`;
+
+        } else {
+
+            listaTurmas.forEach(turma => {
+
+                selectTurma.innerHTML += `<option value="${turma.id}">${turma.nome}</option>`;
+
+            });
+
+        }
+
+    } catch (erro) {
+
+        console.error('Erro ao carregar selects:', erro);
+
+    }
 
 }
 
 async function carregarMatriculas(){
 
-    const resposta =
-        await fetch(API_MATRICULAS);
+    const tabela = document.getElementById('tabela-matriculas');
 
-    const matriculas =
-        await resposta.json();
+    try {
 
-    const tabela =
-        document.getElementById(
-            'tabela-matriculas'
-        );
+        const resposta = await fetch(API_MATRICULAS);
 
-    tabela.innerHTML = '';
+        if (!resposta.ok) {
+            throw new Error('Erro ao buscar matrículas');
+        }
 
-    matriculas.forEach(m => {
+        const matriculas = await resposta.json();
 
-        tabela.innerHTML += `
+        tabela.innerHTML = '';
 
+        if (matriculas.length === 0) {
+
+            tabela.innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align:center;">
+                        Nenhuma matrícula registrada.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+        matriculas.forEach(m => {
+
+            tabela.innerHTML += `
             <tr>
-
-                <td>${m.id}</td>
-
-                <td>${m.aluno}</td>
-
-                <td>${m.turma}</td>
-
-                <td>
-                    ${new Date(
-                        m.data_matricula
-                    ).toLocaleDateString()}
-                </td>
-
+                <td data-label="ID">${m.id}</td>
+                <td data-label="Aluno">${m.aluno}</td>
+                <td data-label="Turma">${m.turma}</td>
+                <td data-label="Data">${new Date(m.data_matricula).toLocaleDateString()}</td>
             </tr>
+            `;
 
+        });
+
+    } catch (erro) {
+
+        console.error('Erro ao carregar matrículas:', erro);
+
+        tabela.innerHTML = `
+            <tr>
+                <td colspan="4" style="text-align:center;">
+                    Erro ao carregar matrículas. Tente novamente.
+                </td>
+            </tr>
         `;
 
-    });
+    }
 
 }
 
-document
-.getElementById('form-matricula')
-.addEventListener(
-'submit',
-async(event)=>{
+document.getElementById('form-matricula').addEventListener('submit', async (event) => {
 
     event.preventDefault();
 
-    await fetch(
-        API_MATRICULAS,
-        {
+    const alunoId = document.getElementById('aluno-select').value;
+    const turmaId = document.getElementById('turma-select').value;
 
-            method:'POST',
+    if (!alunoId || !turmaId) {
 
-            headers:{
-                'Content-Type':
-                'application/json'
+        alert('Selecione um aluno e uma turma.');
+
+        return;
+
+    }
+
+    try {
+
+        const resposta = await fetch(API_MATRICULAS, {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
             },
 
-            body:JSON.stringify({
+            body: JSON.stringify({ alunoId, turmaId })
 
-                alunoId:
-                document.getElementById(
-                    'aluno-select'
-                ).value,
+        });
 
-                turmaId:
-                document.getElementById(
-                    'turma-select'
-                ).value
-
-            })
-
+        if (!resposta.ok) {
+            throw new Error('Erro ao registrar matrícula');
         }
-    );
 
-    carregarSelects();
+        carregarMatriculas();
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        alert('Não foi possível registrar a matrícula. Tente novamente.');
+
+    }
 
 });
+
+carregarSelects();
+carregarMatriculas();

@@ -1,184 +1,199 @@
-const API_ALUNOS =
-'http://localhost:3000/alunos';
+const API_ALUNOS = 'http://localhost:3000/alunos';
 
 let alunoEditando = null;
 
 async function carregarAlunos(){
 
-    const resposta =
-        await fetch(API_ALUNOS);
+    try {
 
-    const alunos =
-        await resposta.json();
+        const resposta = await fetch(API_ALUNOS);
 
-    const tabela =
-        document.getElementById(
-            'tabela-alunos'
-        );
+        if (!resposta.ok) {
+            throw new Error('Erro ao buscar alunos');
+        }
 
-    tabela.innerHTML = '';
+        const alunos = await resposta.json();
 
-    alunos.forEach(aluno => {
+        const tabela = document.getElementById('tabela-alunos');
 
-        tabela.innerHTML += `
+        tabela.innerHTML = '';
 
-          
+        if (alunos.length === 0) {
+
+            tabela.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center;">
+                        Nenhum aluno cadastrado.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+        alunos.forEach(aluno => {
+
+            tabela.innerHTML += `
+                <tr>
+                    <td data-label="ID">${aluno.id}</td>
+                    <td data-label="Nome">${aluno.nome}</td>
+                    <td data-label="Email">${aluno.email}</td>
+                    <td data-label="Idade">${aluno.idade}</td>
+                    <td data-label="Ações">
+                        <button
+                            aria-label="Editar aluno ${aluno.nome}"
+                            onclick="editarAluno(${aluno.id}, '${aluno.nome}', '${aluno.email}', '${aluno.data_nascimento}')">
+                            Editar
+                        </button>
+                        <button
+                            aria-label="Excluir aluno ${aluno.nome}"
+                            onclick="excluirAluno(${aluno.id})">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+        });
+
+    } catch (erro) {
+
+        console.error('Erro ao carregar alunos:', erro);
+
+        const tabela = document.getElementById('tabela-alunos');
+
+        tabela.innerHTML = `
             <tr>
-
-                <td>${aluno.id}</td>
-
-                <td>${aluno.nome}</td>
-
-                <td>${aluno.email}</td>
-
-                <td>${aluno.idade}</td>
-
-                <td>
-
-                    <button
-                        onclick="
-                        editarAluno(
-                            ${aluno.id},
-                            '${aluno.nome}',
-                            '${aluno.email}',
-                            ${aluno.idade}
-                        )">
-
-                        Editar
-
-                    </button>
-
-                    <button
-                        onclick="
-                        excluirAluno(
-                            ${aluno.id}
-                        )">
-
-                        Excluir
-
-                    </button>
-
+                <td colspan="5" style="text-align:center;">
+                    Erro ao carregar alunos. Tente novamente.
                 </td>
-
             </tr>
-
         `;
 
-    });
+    }
 
 }
 
-const formAluno =
-    document.getElementById('form-aluno');
+const formAluno = document.getElementById('form-aluno');
 
-formAluno.addEventListener(
-    'submit',
-    async (event) => {
+formAluno.addEventListener('submit', async (event) => {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        const aluno = {
+    const nome = document.getElementById('nome-aluno').value.trim();
+    const email = document.getElementById('email-aluno').value.trim();
+    const data_nascimento = document.getElementById('data_nascimento-aluno').value;
 
-            nome:
-                document.getElementById(
-                    'nome-aluno'
-                ).value,
+    if (!nome || !email || !data_nascimento) {
 
-            email:
-                document.getElementById(
-                    'email-aluno'
-                ).value,
+        alert('Preencha todos os campos.');
 
-            data_nascimento:
-                document.getElementById(
-                    'data_nascimento-aluno'
-                ).value
-        };
+        return;
 
-        if(alunoEditando) {
+    }
 
-            await fetch(`${API_ALUNOS}/${alunoEditando}`, 
-                
-                {
-                    method: 'PUT',
+    const aluno = { nome, email, data_nascimento };
 
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
+    try {
 
-                    body: JSON.stringify(aluno)
-                }
-            );
+        if (alunoEditando) {
+
+            const resposta = await fetch(`${API_ALUNOS}/${alunoEditando}`, {
+
+                method: 'PUT',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify(aluno)
+
+            });
+
+            if (!resposta.ok) {
+                throw new Error('Erro ao atualizar aluno');
+            }
 
             alunoEditando = null;
 
-        }
+            alert('Aluno atualizado com sucesso.');
 
-        else{
+        } else {
 
-            await fetch(
+            const resposta = await fetch(API_ALUNOS, {
 
-                API_ALUNOS,
+                method: 'POST',
 
-                {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
 
-                    method:'POST',
+                body: JSON.stringify(aluno)
 
-                    headers:{
-                        'Content-Type':
-                        'application/json'
-                    },
+            });
 
-                    body:
-                    JSON.stringify(aluno)
+            if (!resposta.ok) {
+                throw new Error('Erro ao cadastrar aluno');
+            }
 
-                }
-
-            );
+            alert('Aluno cadastrado com sucesso.');
 
         }
-
-        alert('Aluno cadastrado com sucesso.')
 
         formAluno.reset();
 
         carregarAlunos();
 
+    } catch (erro) {
 
+        console.error(erro);
+
+        alert('Não foi possível salvar o aluno. Tente novamente.');
 
     }
-);
+
+});
 
 function editarAluno(id, nome, email, data_nascimento){
 
     alunoEditando = id;
 
     document.getElementById('nome-aluno').value = nome;
-
     document.getElementById('email-aluno').value = email;
+    document.getElementById('data_nascimento-aluno').value = data_nascimento.substring(0, 10);
 
-    document.getElementById('data_nascimento-aluno').value = data_nascimento;
+    document.getElementById('nome-aluno').focus();
 
-    
 }
 
 async function excluirAluno(id){
 
     const confirmar = confirm('Deseja excluir este aluno?');
 
-    if(!confirm){
-
+    if (!confirmar) {
         return;
     }
 
-    await fetch(
-        `${API_ALUNOS}/${id}`,
-        {
-            method:'DELETE'
-        }
-    );
+    try {
 
-    carregarAlunos();
+        const resposta = await fetch(`${API_ALUNOS}/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!resposta.ok) {
+            throw new Error('Erro ao excluir aluno');
+        }
+
+        carregarAlunos();
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        alert('Não foi possível excluir o aluno. Tente novamente.');
+
+    }
 
 }
 

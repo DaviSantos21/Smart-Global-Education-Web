@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SGEW</title>
 
     <link rel="stylesheet" href="css/style.css">
@@ -16,11 +17,11 @@
 
         <h2>📚 Escola</h2>
 
-        <button onclick="mostrar('dashboard')">Dashboard</button>
-        <button onclick="mostrar('alunos')">Alunos</button>
-        <button onclick="mostrar('turmas')">Turmas</button>
-        <button onclick="mostrar('matriculas')">Matrículas</button>
-        <button onclick="mostrar('mensagens')">Mensagens</button>
+        <button data-page="dashboard" onclick="mostrar('dashboard')">Dashboard</button>
+        <button data-page="alunos" onclick="mostrar('alunos')">Alunos</button>
+        <button data-page="turmas" onclick="mostrar('turmas')">Turmas</button>
+        <button data-page="matriculas" onclick="mostrar('matriculas')">Matrículas</button>
+        <button data-page="mensagens" onclick="mostrar('mensagens')">Mensagens</button>
 
     </aside>
 
@@ -56,225 +57,243 @@
             </div>
 
         </section>
-            <section id="alunos" class="page hidden">
 
-    <h1>Alunos</h1>
+        <!-- ALUNOS -->
+        <section id="alunos" class="page hidden">
+
+            <h1>Alunos</h1>
+
+            <form id="form-aluno">
+
+                <div class="campo">
+                    <label for="nome-aluno">Nome</label>
+                    <input
+                        type="text"
+                        id="nome-aluno"
+                        placeholder="Nome"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="email-aluno">Email</label>
+                    <input
+                        type="email"
+                        id="email-aluno"
+                        placeholder="Email"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="data_nascimento-aluno">Data de nascimento</label>
+                    <input
+                        type="date"
+                        id="data_nascimento-aluno"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Cadastrar
+                </button>
+
+            </form>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Idade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
 
-    <form id="form-aluno">
+                <tbody id="tabela-alunos">
 
-        <input
-            type="text"
-            id="nome-aluno"
-            placeholder="Nome"
-            required
-        >
+                </tbody>
 
-        <input
-            type="email"
-            id="email-aluno"
-            placeholder="Email"
-            required
-        >
+            </table>
 
-        <input
-            type="date"
-            id="data_nascimento-aluno"
-            placeholder="Data de nascimento"
-            required
-        >
+        </section>
 
-        <button type="submit">
-            Cadastrar
-        </button>
+        <!-- TURMAS -->
+        <section id="turmas" class="page hidden">
 
-    </form>
+            <h1>Turmas</h1>
 
-    <table>
+            <form id="form-turma">
 
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Idade</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+                <div class="campo">
+                    <label for="nome-turma">Nome da turma</label>
+                    <input
+                        type="text"
+                        id="nome-turma"
+                        placeholder="Nome da turma"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="turno-turma">Turno</label>
+                    <input
+                        type="text"
+                        id="turno-turma"
+                        placeholder="Turno"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="ano-turma">Ano</label>
+                    <input
+                        type="number"
+                        id="ano-turma"
+                        placeholder="Ano"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Cadastrar
+                </button>
 
-    <tbody id="tabela-alunos">
+            </form>
 
-    </tbody>
+            <div id="lista-turmas" class="cards"></div>
 
-</table>
+        </section>
 
-</section>
+        <!-- MATRÍCULAS -->
+        <section id="matriculas" class="page hidden">
 
-<section id="turmas" class="page hidden">
+            <h1>Matrículas</h1>
 
-    <h1>Turmas</h1>
+            <form id="form-matricula">
 
-    <form id="form-turma">
+                <div class="campo">
+                    <label for="aluno-select">Aluno</label>
+                    <select id="aluno-select"></select>
+                </div>
 
-        <input
-            type="text"
-            id="nome-turma"
-            placeholder="Nome da turma"
-            required
-        >
+                <div class="campo">
+                    <label for="turma-select">Turma</label>
+                    <select id="turma-select"></select>
+                </div>
 
-        <input
-            type="text"
-            id="turno-turma"
-            placeholder="Turno"
-            required
-        >
+                <button type="submit">
+                    Matricular
+                </button>
 
-        <input
-            type="number"
-            id="ano-turma"
-            placeholder="Ano"
-            required
-        >
+            </form>
 
-        <button type="submit">
-            Cadastrar
-        </button>
+            <table>
 
-    </form>
+                <thead>
 
-    <div id="lista-turmas"></div>
+                    <tr>
+                        <th>ID</th>
+                        <th>Aluno</th>
+                        <th>Turma</th>
+                        <th>Data</th>
+                    </tr>
 
-</section>
+                </thead>
 
-<section id="matriculas" class="page hidden">
+                <tbody id="tabela-matriculas">
 
-    <h1>Matrículas</h1>
+                </tbody>
 
-    <form id="form-matricula">
+            </table>
 
-        <select id="aluno-select">
+        </section>
 
-        </select>
+        <!-- MENSAGENS -->
+        <section id="mensagens" class="page hidden">
 
-        <select id="turma-select">
+            <h1>Mensagens</h1>
 
-        </select>
+            <form id="form-mensagem">
 
-        <button type="submit">
+                <div class="campo">
+                    <label for="nome-msg">Nome</label>
+                    <input
+                        type="text"
+                        id="nome-msg"
+                        placeholder="Nome"
+                        required
+                    >
+                </div>
 
-            Matricular
+                <div class="campo">
+                    <label for="email-msg">Email</label>
+                    <input
+                        type="email"
+                        id="email-msg"
+                        placeholder="Email"
+                        required
+                    >
+                </div>
 
-        </button>
+                <div class="campo">
+                    <label for="assunto-msg">Assunto</label>
+                    <input
+                        type="text"
+                        id="assunto-msg"
+                        placeholder="Assunto"
+                        required
+                    >
+                </div>
 
-    </form>
+                <div class="campo campo-full">
+                    <label for="mensagem-msg">Mensagem</label>
+                    <textarea
+                        class="text"
+                        id="mensagem-msg"
+                        placeholder="Mensagem"
+                        required
+                    ></textarea>
+                </div>
 
-    <table>
+                <button type="submit">
+                    Enviar
+                </button>
 
-    <thead>
+            </form>
 
-        <tr>
+            <table>
 
-            <th>ID</th>
-            <th>Aluno</th>
-            <th>Turma</th>
-            <th>Data</th>
+                <thead>
 
-        </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Assunto</th>
+                        <th>Data</th>
+                    </tr>
 
-    </thead>
+                </thead>
 
-    <tbody id="tabela-matriculas">
+                <tbody id="tabela-mensagens">
 
-    </tbody>
+                </tbody>
 
-</table>
+            </table>
 
-    <div id="lista-matriculas"></div>
+        </section>
 
-</section>
+    </main>
 
+</div>
 
-
-<section id="mensagens" class="page hidden">
-
-    <h1>Mensagens</h1>
-
-    <form id="form-mensagem">
-
-        <input
-            type="text"
-            id="nome-msg"
-            placeholder="Nome"
-            required
-        >
-
-        <input
-            type="email"
-            id="email-msg"
-            placeholder="Email"
-            required
-        >
-
-        <input
-            type="text"
-            id="assunto-msg"
-            placeholder="Assunto"
-            required
-        >
-
-
-        <button type="submit">
-            Enviar
-        </button>
-
-    </form>
-
-            <textarea class="text"
-            id="mensagem-msg"
-            placeholder="Mensagem"
-            required
-        ></textarea>
-
-        <table>
-
-    <thead>
-
-        <tr>
-
-            <th>Nome</th>
-            <th>Assunto</th>
-            <th>Data</th>
-
-        </tr>
-
-    </thead>
-
-    <tbody id="tabela-mensagens">
-
-    </tbody>
-
-</table>
-
-
-    <div id="lista-mensagens"></div>
-
-</section>
-        </main>
-
-    </div>
-
-    <script src="js/dashboard.js"></script>
-
-    <script src="js/app.js"></script>
-
-    <script src="js/alunos.js"></script>
-
-    <script src="js/turmas.js"></script>
-
-    <script src="js/matriculas.js"></script>
-
-    <script src="js/mensagens.js"></script>
-
+<script src="js/app.js"></script>
+<script src="js/dashbord.js"></script>
+<script src="js/alunos.js"></script>
+<script src="js/turmas.js"></script> 
+<script src="js/matriculas.js"></script>
+<script src="js/mensagens.js"></script>
 
 </body>
 

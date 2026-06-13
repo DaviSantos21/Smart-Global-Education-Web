@@ -1,99 +1,110 @@
-const API_MENSAGENS =
-'http://localhost:3000/mensagens';
+const API_MENSAGENS = 'http://localhost:3000/mensagens';
 
-document
-.getElementById(
-    'form-mensagem'
-)
-.addEventListener(
-'submit',
-async(event)=>{
+document.getElementById('form-mensagem').addEventListener('submit', async (event) => {
 
     event.preventDefault();
 
-    await fetch(
-        API_MENSAGENS,
-        {
+    const nome = document.getElementById('nome-msg').value.trim();
+    const email = document.getElementById('email-msg').value.trim();
+    const assunto = document.getElementById('assunto-msg').value.trim();
+    const mensagem = document.getElementById('mensagem-msg').value.trim();
 
-            method:'POST',
+    if (!nome || !email || !assunto || !mensagem) {
 
-            headers:{
-                'Content-Type':
-                'application/json'
+        alert('Preencha todos os campos.');
+
+        return;
+
+    }
+
+    try {
+
+        const resposta = await fetch(API_MENSAGENS, {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
             },
 
-            body:JSON.stringify({
+            body: JSON.stringify({ nome, email, assunto, mensagem })
 
-                nome:
-                document.getElementById(
-                    'nome-msg'
-                ).value,
+        });
 
-                email:
-                document.getElementById(
-                    'email-msg'
-                ).value,
-
-                assunto:
-                document.getElementById(
-                    'assunto-msg'
-                ).value,
-
-                mensagem:
-                document.getElementById(
-                    'mensagem-msg'
-                ).value
-
-            })
-
+        if (!resposta.ok) {
+            throw new Error('Erro ao enviar mensagem');
         }
-    );
 
-    document
-    .getElementById(
-        'form-mensagem'
-    )
-    .reset();
+        document.getElementById('form-mensagem').reset();
+
+        carregarMensagens();
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        alert('Não foi possível enviar a mensagem. Tente novamente.');
+
+    }
 
 });
 
 async function carregarMensagens(){
 
-    const resposta =
-        await fetch(API_MENSAGENS);
+    const tabela = document.getElementById('tabela-mensagens');
 
-    const mensagens =
-        await resposta.json();
+    try {
 
-    const tabela =
-        document.getElementById(
-            'tabela-mensagens'
-        );
+        const resposta = await fetch(API_MENSAGENS);
 
-    tabela.innerHTML = '';
+        if (!resposta.ok) {
+            throw new Error('Erro ao buscar mensagens');
+        }
 
-    mensagens.forEach(msg => {
+        const mensagens = await resposta.json();
 
-        tabela.innerHTML += `
+        tabela.innerHTML = '';
 
+        if (mensagens.length === 0) {
+
+            tabela.innerHTML = `
+                <tr>
+                    <td colspan="3" style="text-align:center;">
+                        Nenhuma mensagem recebida.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+        mensagens.forEach(msg => {
+
+            tabela.innerHTML += `
             <tr>
-
-                <td>${msg.nome}</td>
-
-                <td>${msg.assunto}</td>
-
-                <td>
-
-                    ${new Date(
-                        msg.data_envio
-                    ).toLocaleDateString()}
-
-                </td>
-
+                <td data-label="Nome">${msg.nome}</td>
+                <td data-label="Assunto">${msg.assunto}</td>
+                <td data-label="Data">${new Date(msg.data_envio).toLocaleDateString()}</td>
             </tr>
+            `;
 
+        });
+
+    } catch (erro) {
+
+        console.error('Erro ao carregar mensagens:', erro);
+
+        tabela.innerHTML = `
+            <tr>
+                <td colspan="3" style="text-align:center;">
+                    Erro ao carregar mensagens. Tente novamente.
+                </td>
+            </tr>
         `;
 
-    });
+    }
 
 }
+
+carregarMensagens();
