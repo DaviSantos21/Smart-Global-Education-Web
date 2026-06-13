@@ -22,24 +22,45 @@ async function carregarAlunos(){
 
         lista.innerHTML += `
 
-            <div class="card">
+          
+            <tr>
 
-                <h3>${aluno.nome}</h3>
+                <td>${aluno.id}</td>
 
-                <p>${aluno.email}</p>
+                <td>${aluno.nome}</td>
 
-                <p>${aluno.idade}</p>
+                <td>${aluno.email}</td>
 
-                <br>
+                <td>${aluno.idade}</td>
 
-                <button class="btn-excluir" onclick="excluirAluno(${aluno.id})">Excluir</button>
+                <td>
 
-                        <button onclick="editarAluno(${aluno.id},
-                        '${aluno.nome}',
-                        '${aluno.email}',
-                        '${aluno.data_nascimento}')">Editar</button>
+                    <button
+                        onclick="
+                        editarAluno(
+                            ${aluno.id},
+                            '${aluno.nome}',
+                            '${aluno.email}',
+                            ${aluno.idade}
+                        )">
 
-            </div>
+                        Editar
+
+                    </button>
+
+                    <button
+                        onclick="
+                        excluirAluno(
+                            ${aluno.id}
+                        )">
+
+                        Excluir
+
+                    </button>
+
+                </td>
+
+            </tr>
 
         `;
 

@@ -32,9 +32,56 @@
                 Mensagens
             </button>
 
+            <button onclick="mostrarPagina('dashboard')">
+    Dashboard
+</button>
+
         </aside>
 
         <main class="content">
+
+
+            <section id="dashboard">
+
+    <h1>Painel Administrativo</h1>
+
+    <div class="cards-dashboard">
+
+        <div class="dashboard-card">
+
+            <h3>Total de Alunos</h3>
+
+            <p id="total-alunos">0</p>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <h3>Total de Turmas</h3>
+
+            <p id="total-turmas">0</p>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <h3>Total de Matrículas</h3>
+
+            <p id="total-matriculas">0</p>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <h3>Mensagens</h3>
+
+            <p id="total-mensagens">0</p>
+
+        </div>
+
+    </div>
+
+</section>
 
             <section id="alunos">
 
@@ -68,6 +115,24 @@
         </button>
 
     </form>
+
+    <table>
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Idade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody id="tabela-alunos">
+
+    </tbody>
+
+</table>
 
     <div id="mensagem"></div>
 
@@ -229,6 +294,8 @@
 
     </div>
 
+    <script src="js/dashboard.js"></script>
+
     <script src="js/app.js"></script>
 
     <script src="js/alunos.js"></script>
@@ -238,6 +305,7 @@
     <script src="js/matriculas.js"></script>
 
     <script src="js/mensagens.js"></script>
+
 
 </body>
 
