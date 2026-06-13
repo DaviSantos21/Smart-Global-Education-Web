@@ -11,16 +11,16 @@ async function carregarAlunos(){
     const alunos =
         await resposta.json();
 
-    const lista =
+    const tabela =
         document.getElementById(
-            'lista-alunos'
+            'tabela-alunos'
         );
 
-    lista.innerHTML = '';
+    tabela.innerHTML = '';
 
     alunos.forEach(aluno => {
 
-        lista.innerHTML += `
+        tabela.innerHTML += `
 
           
             <tr>
@@ -153,7 +153,7 @@ function editarAluno(id, nome, email, data_nascimento){
 
     alunoEditando = id;
 
-    document.getElementById('nome-aluno').valur = nome;
+    document.getElementById('nome-aluno').value = nome;
 
     document.getElementById('email-aluno').value = email;
 

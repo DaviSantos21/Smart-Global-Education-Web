@@ -1,13 +1,9 @@
-function mostrarPagina(id){
+function mostrar(id){
 
-    const secoes = document.querySelectorAll('section');
+    document.querySelectorAll('.page')
+    .forEach(p => p.classList.add('hidden'));
 
-    secoes.forEach(secao => {
-
-        secao.style.display = 'none';
-
-    });
-
-    document.getElementById(id).style.display = 'block';
+    document.getElementById(id)
+    .classList.remove('hidden');
 
 }
