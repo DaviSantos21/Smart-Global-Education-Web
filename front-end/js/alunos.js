@@ -32,11 +32,11 @@ async function carregarAlunos(){
 
         }
 
-        alunos.forEach(aluno => {
+        alunos.forEach((aluno, index) => {
 
             tabela.innerHTML += `
                 <tr>
-                    <td data-label="ID">${aluno.id}</td>
+                    <td data-label="ID">${index + 1}</td>
                     <td data-label="Nome">${aluno.nome}</td>
                     <td data-label="Email">${aluno.email}</td>
                     <td data-label="Idade">${aluno.idade}</td>
@@ -44,12 +44,12 @@ async function carregarAlunos(){
                         <button
                             aria-label="Editar aluno ${aluno.nome}"
                             onclick="editarAluno(${aluno.id}, '${aluno.nome}', '${aluno.email}', '${aluno.data_nascimento}')">
-                            Editar
+                            ✏️
                         </button>
                         <button
                             aria-label="Excluir aluno ${aluno.nome}"
                             onclick="excluirAluno(${aluno.id})">
-                            Excluir
+                            🗑️
                         </button>
                     </td>
                 </tr>
