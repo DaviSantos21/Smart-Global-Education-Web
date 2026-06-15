@@ -85,7 +85,7 @@ async function carregarMensagens(){
             <tr>
                 <td data-label="Nome">${msg.nome}</td>
                 <td data-label="Assunto">${msg.assunto}</td>
-                <td data-label="Data">${new Date(msg.data_envio).toLocaleDateString()}</td>
+                <td data-label="Data">${msg.dataEnvio.substring(0, 10)}</td>
             </tr>
             `;
 

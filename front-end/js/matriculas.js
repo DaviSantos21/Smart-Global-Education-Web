@@ -95,7 +95,7 @@ async function carregarMatriculas(){
                 <td data-label="ID">${m.id}</td>
                 <td data-label="Aluno">${m.aluno}</td>
                 <td data-label="Turma">${m.turma}</td>
-                <td data-label="Data">${new Date(m.data_matricula).toLocaleDateString()}</td>
+                <td data-label="Data">${m.dataMatricula.substring(0, 10)}</td>
             </tr>
             `;
 
