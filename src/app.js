@@ -2,7 +2,7 @@ const express = require ('express');
 
 const cors = require('cors');
 
-require('./config/db');
+require('./config/db.js');
 
 const alunoRoutes = require('./routes/alunoRoutes');
 
