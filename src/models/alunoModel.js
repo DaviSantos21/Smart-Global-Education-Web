@@ -1,4 +1,4 @@
-const conexao = require('../config/db');
+const conexao = require('../config/db.js');
 
 const Aluno = {
 
