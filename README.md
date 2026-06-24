@@ -16,9 +16,10 @@ Sistema web de gerenciamento escolar desenvolvido para cadastro de alunos, turma
 
 ### Back-end
 
-* Node.js
-* Express.js
-* MySQL
+* ![Node.js](https://img.shields.io/badge/Node.js-22.x-green)
+* ![Express](https://img.shields.io/badge/Express-Framework-black)
+* ![MySQL](https://img.shields.io/badge/MySQL-Database-blue)
+* ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ### Front-end
 
@@ -73,7 +74,7 @@ cd Smart-Global-Education-Web-master
 
 ### 3. Instalar dependências
 
-npm install express mysql2 cors dotenv nodemon
+npm install express
 
 ### 4. Configurar banco de dados
 
@@ -133,12 +134,27 @@ POST /mensagens
 * Dashboard com gráficos e relatórios
 * Deploy do sistema em ambiente online
 
-## Autor
+## 👨‍💻 Autor
 
 Davi Santana dos Santos
 
 Estudante de Ciência da Computação (5º semestre)
 
-GitHub: https://github.com/DaviSantos21
+GitHub:
+https://github.com/DaviSantos21
 
-LinkedIn: https://www.linkedin.com/in/davi-santana-885850237/
+LinkedIn:
+https://www.linkedin.com/in/davi-santana-885850237/
+
+## Aprendizados
+
+Durante o desenvolvimento deste projeto foram aplicados conceitos de:
+
+- Arquitetura MVC
+- API REST
+- CRUD completo
+- Integração Front-end e Back-end
+- Modelagem de Banco de Dados
+- Relacionamentos SQL
+- Versionamento com Git e GitHub
+- Manipulação de requisições HTTP
