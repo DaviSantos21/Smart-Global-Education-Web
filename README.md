@@ -74,7 +74,7 @@ cd Smart-Global-Education-Web-master
 
 ### 3. Instalar dependências
 
-npm install express
+npm install 
 
 ### 4. Configurar banco de dados
 
@@ -133,6 +133,8 @@ POST /mensagens
 * Controle de permissões
 * Dashboard com gráficos e relatórios
 * Deploy do sistema em ambiente online
+
+O sistema conta com autenticação front-end simples. Tenho conhecimento das limitações dessa abordagem e das melhorias necessárias para produção, como JWT, bcrypt e proteção das rotas no back-end
 
 ## 👨‍💻 Autor
 
