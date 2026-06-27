@@ -43,7 +43,7 @@ async function carregarAlunos(){
                     <td data-label="Ações">
                         <button
                             aria-label="Editar aluno ${aluno.nome}"
-                            onclick="editarAluno(${aluno.id}, '${aluno.nome}', '${aluno.email}', '${aluno.data_nascimento}')">
+                            onclick="abrirEditor(${aluno.id}, '${aluno.nome}', '${aluno.email}', '${aluno.data_nascimento}')">
                             ✏️
                         </button>
                         <button
@@ -97,30 +97,6 @@ formAluno.addEventListener('submit', async (event) => {
 
     try {
 
-        if (alunoEditando) {
-
-            const resposta = await fetch(`${API_ALUNOS}/${alunoEditando}`, {
-
-                method: 'PUT',
-
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-
-                body: JSON.stringify(aluno)
-
-            });
-
-            if (!resposta.ok) {
-                throw new Error('Erro ao atualizar aluno');
-            }
-
-            alunoEditando = null;
-
-            alert('Aluno atualizado com sucesso.');
-
-        } else {
-
             const resposta = await fetch(API_ALUNOS, {
 
                 method: 'POST',
@@ -139,7 +115,7 @@ formAluno.addEventListener('submit', async (event) => {
 
             alert('Aluno cadastrado com sucesso.');
 
-        }
+        
 
         formAluno.reset();
 
@@ -155,17 +131,68 @@ formAluno.addEventListener('submit', async (event) => {
 
 });
 
-function editarAluno(id, nome, email, data_nascimento){
 
-    alunoEditando = id;
 
-    document.getElementById('nome-aluno').value = nome;
-    document.getElementById('email-aluno').value = email;
-    document.getElementById('data_nascimento-aluno').value = data_nascimento.substring(0, 10);
+function abrirEditor(id, nome, email, data_nascimento){
 
-    document.getElementById('nome-aluno').focus();
+     document.getElementById('modal-editar-id').value = id;
+    document.getElementById('modal-editar-nome').value = nome;
+    document.getElementById('modal-editar-email').value = email;
+    document.getElementById('modal-editar-nascimento').value = data_nascimento.substring(0, 10);
+
+    document.getElementById('modal-editar-aluno').classList.remove('hidden');
+    document.getElementById('modal-editar-nome').focus();
 
 }
+
+function fecharModalEditor(){ 
+    document.getElementById('modal-editar-aluno').classList.add('hidden');
+    document.getElementById('form-editar-aluno').reset();
+
+}
+
+document.getElementById('modal-editar-aluno').addEventListener('click', (event) => {
+        if(event.target === document.getElementById('modal-editar-aluno')){
+            fecharModalEditor();
+            
+        }
+    });
+
+
+    document.getElementById('form-editar-aluno').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const id = document.getElementById('modal-editar-id').value;
+        const nome = document.getElementById('modal-editar-nome').value.trim();
+        const email = document.getElementById('modal-editar-email').value.trim();
+        const data_nascimento = document.getElementById('modal-editar-nascimento').value;
+
+        try{
+
+            const resposta = await fetch(`${API_ALUNOS}/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({nome, email, data_nascimento})
+            });
+
+            if(!resposta.ok){
+                throw new Error('Erro ao atualizar aluno');
+                fecharModalEditor();
+                carregarAlunos();
+            }
+
+            alert('Aluno atualizado com sucesso.');
+
+            fecharModalEditor();
+            carregarAlunos();
+
+        } catch (erro) {
+
+            console.error(erro);
+            alert('Não foi possível atualizar o aluno. Tente novamente.');
+        }
+    });
+
 
 async function excluirAluno(id){
 

@@ -419,7 +419,8 @@ td button:last-of-type {
 }
 
 .modal-fechar:hover {
-    background: #f1f5f9;
+    background: #ff0000;
+    color: white;
 }
 
 .modal-box h2 {
@@ -452,6 +453,20 @@ td button:last-of-type {
     color: #334155;
     line-height: 1.7;
     white-space: pre-wrap;
+}
+
+.modal-box form {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 16px 0 0;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-box form button[type="submit"] {
+    width: 100%;
+    margin-top: 8px;
 }
 
 /* Botão "Ver" na tabela de mensagens */

@@ -88,11 +88,11 @@ async function carregarMatriculas(){
 
         }
 
-        matriculas.forEach(m => {
+        matriculas.forEach((m, index) => {
 
             tabela.innerHTML += `
             <tr>
-                <td data-label="ID">${m.id}</td>
+                <td data-label="ID">${index + 1}</td>
                 <td data-label="Aluno">${m.aluno}</td>
                 <td data-label="Turma">${m.turma}</td>
                 <td data-label="Data">${m.dataMatricula.substring(0, 10)}</td>

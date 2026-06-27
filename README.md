@@ -50,6 +50,8 @@ Sistema web de gerenciamento escolar desenvolvido para cadastro de alunos, turma
 
 ![Cadastro](assets/Cadastro.gif)
 
+![Atualização](assets/modal-editor.png)
+
 ### Turmas
 
 ![Turmas](assets/turmas.png)
