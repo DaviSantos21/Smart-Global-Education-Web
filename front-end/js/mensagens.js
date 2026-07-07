@@ -19,7 +19,7 @@ document.getElementById('form-mensagem').addEventListener('submit', async (event
 
     try {
 
-        const resposta = await fetch(API_MENSAGENS, {
+        const resposta = await fetchAutenticado(API_MENSAGENS, {
 
             method: 'POST',
 
@@ -55,7 +55,7 @@ async function carregarMensagens(){
 
     try {
 
-        const resposta = await fetch(API_MENSAGENS);
+        const resposta = await fetchAutenticado(API_MENSAGENS);
 
         if (!resposta.ok) {
             throw new Error('Erro ao buscar mensagens');

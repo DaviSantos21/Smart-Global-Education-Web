@@ -1,12 +1,10 @@
 const API_ALUNOS = 'http://localhost:3000/alunos';
 
-let alunoEditando = null;
-
 async function carregarAlunos(){
 
     try {
 
-        const resposta = await fetch(API_ALUNOS);
+        const resposta = await fetchAutenticado(API_ALUNOS);
 
         if (!resposta.ok) {
             throw new Error('Erro ao buscar alunos');
@@ -97,7 +95,7 @@ formAluno.addEventListener('submit', async (event) => {
 
     try {
 
-            const resposta = await fetch(API_ALUNOS, {
+            const resposta = await fetchAutenticado(API_ALUNOS, {
 
                 method: 'POST',
 
@@ -169,7 +167,7 @@ document.getElementById('modal-editar-aluno').addEventListener('click', (event) 
 
         try{
 
-            const resposta = await fetch(`${API_ALUNOS}/${id}`, {
+            const resposta = await fetchAutenticado(`${API_ALUNOS}/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({nome, email, data_nascimento})
@@ -204,7 +202,7 @@ async function excluirAluno(id){
 
     try {
 
-        const resposta = await fetch(`${API_ALUNOS}/${id}`, {
+        const resposta = await fetchAutenticado(`${API_ALUNOS}/${id}`, {
             method: 'DELETE'
         });
 

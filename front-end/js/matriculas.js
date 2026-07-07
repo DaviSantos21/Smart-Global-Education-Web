@@ -8,8 +8,8 @@ async function carregarSelects(){
     try {
 
         const [alunosResp, turmasResp] = await Promise.all([
-            fetch('http://localhost:3000/alunos'),
-            fetch('http://localhost:3000/turmas')
+            fetchAutenticado('http://localhost:3000/alunos'),
+            fetchAutenticado('http://localhost:3000/turmas')
         ]);
 
         if (!alunosResp.ok || !turmasResp.ok) {
@@ -64,7 +64,7 @@ async function carregarMatriculas(){
 
     try {
 
-        const resposta = await fetch(API_MATRICULAS);
+        const resposta = await fetchAutenticado(API_MATRICULAS);
 
         if (!resposta.ok) {
             throw new Error('Erro ao buscar matrículas');
@@ -134,7 +134,7 @@ document.getElementById('form-matricula').addEventListener('submit', async (even
 
     try {
 
-        const resposta = await fetch(API_MATRICULAS, {
+        const resposta = await fetchAutenticado(API_MATRICULAS, {
 
             method: 'POST',
 

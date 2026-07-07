@@ -8,7 +8,7 @@ async function carregarTurmas(){
 
     try {
 
-        const resposta = await fetch(API_TURMAS);
+        const resposta = await fetchAutenticado(API_TURMAS);
 
         if (!resposta.ok) {
             throw new Error('Erro ao buscar turmas');
@@ -68,7 +68,7 @@ formTurma.addEventListener('submit', async (event) => {
 
     try {
 
-        const resposta = await fetch(API_TURMAS, {
+        const resposta = await fetchAutenticado(API_TURMAS, {
 
             method: 'POST',
 

@@ -2,7 +2,11 @@ const express = require ('express');
 
 const cors = require('cors');
 
-require('./config/db.js');
+require('./config/db');
+
+const authRoutes = require('./routes/authRoutes');
+
+const autenticar = require('./middlewares/autenticar');
 
 const alunoRoutes = require('./routes/alunoRoutes');
 
@@ -17,6 +21,10 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+app.use(authRoutes);
+
+app.use(autenticar);
 
 app.use(alunoRoutes);
 

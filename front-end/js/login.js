@@ -1,5 +1,3 @@
-const USUARIO_VALIDO = 'admin';
-const SENHA_VALIDA   = '1234';
 
 function iniciarSistema() {
     document.getElementById('tela-login').classList.add('hidden');
@@ -14,32 +12,52 @@ function iniciarSistema() {
     carregarMensagens();
 }
 
-function tentarLogin() {
+async function tentarLogin() {
 
-    const usuario = document.getElementById('login-usuario').value.trim();
-    const senha   = document.getElementById('login-senha').value;
-    const erro    = document.getElementById('login-erro');
+    const email = document.getElementById('login-usuario').value.trim();
+    const senha = document.getElementById('login-senha').value;
+    const erro = document.getElementById('login-erro');
 
-    if (usuario === USUARIO_VALIDO && senha === SENHA_VALIDA) {
+    try{
 
-        sessionStorage.setItem('logado', 'true');
+        const resposta = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body:JSON.stringify({ email, senha })
+        });
+
+        const dados = await resposta.json();
+
+        if(!resposta.ok) {
+            erro.textContent = dados.erro || 'Credenciais inválidas';
+            erro.classList.remove('hidden');
+            document.getElementById('login-senha').value = '';
+            return;
+        }
+
+        sessionStorage.setItem('token', dados.token);
+        sessionStorage.setItem('user', JSON.stringify(dados.user)); 
+        erro.classList.add('hidden');
         iniciarSistema();
 
-    } else {
 
-        erro.textContent = 'Usuário ou senha incorretos.';
+
+
+        
+
+    }catch (e) {
+
+        erro.textContent = 'Erro ao conectar com o servidor.'
         erro.classList.remove('hidden');
-
-        document.getElementById('login-senha').value = '';
-        document.getElementById('login-senha').focus();
-
+        
     }
 
 }
 
 function logout() {
 
-    sessionStorage.removeItem('logado');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
 
     document.getElementById('tela-sistema').classList.add('hidden');
     document.getElementById('tela-login').classList.remove('hidden');
@@ -51,7 +69,9 @@ function logout() {
 }
 
 document.getElementById('login-senha').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') tentarLogin();
+    if (e.key === 'Enter') {
+        tentarLogin();
+    } 
 });
 
 window.addEventListener('DOMContentLoaded', () => {

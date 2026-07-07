@@ -19,3 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
     mostrar('dashboard');
 
 });
+
+
+function fetchAutenticado(url, options = {}){
+
+    const token = sessionStorage.getItem('token');
+
+    return fetch(url,
+         {...options,
+             headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, 
+                ...options.headers
+             } });
+             
+}
