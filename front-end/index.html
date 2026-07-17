@@ -55,6 +55,9 @@
 
         <h2>📚 Menu</h2>
 
+        <span id="nome-user" style="color:#94a3b8; font-size:0.85rem; padding: 10px 0; display:block;"></span>
+
+        <button data-page="users" onclick="mostrar('users')">Usuários</button>
         <button data-page="dashboard"  onclick="mostrar('dashboard')">Dashboard</button>
         <button data-page="alunos"     onclick="mostrar('alunos')">Alunos</button>
         <button data-page="turmas"     onclick="mostrar('turmas')">Turmas</button>
@@ -65,6 +68,50 @@
     </aside>
 
     <main class="content">
+
+
+        <section id="users" class="page hidden">
+            <h1>Usuários</h1>
+
+            <form id="form-user">
+                <div class="campo">
+                    <label for="nome-user-input">Nome</label>
+                    <input type="text" id="nome-user-input" required>
+                </div>
+                <div class="campo">
+                    <label for="email-user">E-mail</label>
+                    <input type="email" id="email-user" required>
+                </div>
+                <div class="campo">
+                    <label for="senha-user">Senha</label>
+                    <input type="password" id="senha-user" required>
+                </div>
+                <div class="campo">
+                    <label for="acesso-user">Nível</label>
+                    <select id="acesso-user">
+                        <option value="admin">Administrador</option>
+                        <option value="secretary">Secretaria</option>
+                        <option value="professor">Professor</option>                     
+                    </select>
+                </div>
+                <button type="submit">Cadastrar</button>
+            </form>
+            <table>
+            <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Nível</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-users"></tbody>
+        </table>
+        
+        </section>
+
+        
 
         <section id="dashboard" class="page">
             <h1>Dashboard</h1>
@@ -90,7 +137,7 @@
 
         <section id="alunos" class="page hidden">
             <h1>Alunos</h1>
-            <form id="form-aluno">
+            <form id="form-aluno" class="acesso-restrito">
                 <div class="campo">
                     <label for="nome-aluno">Nome</label>
                     <input type="text" id="nome-aluno" placeholder="Nome" required>
@@ -121,7 +168,7 @@
 
         <section id="turmas" class="page hidden">
             <h1>Turmas</h1>
-            <form id="form-turma">
+            <form id="form-turma" class="acesso-restrito">
                 <div class="campo">
                     <label for="nome-turma">Nome da turma</label>
                     <input type="text" id="nome-turma" placeholder="Nome da turma" required>
@@ -141,7 +188,7 @@
 
         <section id="matriculas" class="page hidden">
             <h1>Matrículas</h1>
-            <form id="form-matricula">
+            <form id="form-matricula" class="acesso-restrito">
                 <div class="campo">
                     <label for="aluno-select">Aluno</label>
                     <select id="aluno-select"></select>
@@ -238,6 +285,7 @@
 
 
 <script src="js/app.js"></script>
+<script src="js/users.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/alunos.js"></script>
 <script src="js/turmas.js"></script>

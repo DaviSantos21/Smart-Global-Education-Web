@@ -2,14 +2,46 @@
 function iniciarSistema() {
     document.getElementById('tela-login').classList.add('hidden');
     document.getElementById('tela-sistema').classList.remove('hidden');
-    mostrar('dashboard');
 
+    mostrar('dashboard');
+    carregarUsers();
+    aplicarAcesso();
+    
+   
+    
     carregarDashboard();
     carregarAlunos();
     carregarTurmas();
     carregarSelects();
     carregarMatriculas();
     carregarMensagens();
+
+}
+
+function aplicarAcesso() {
+    
+    const user = JSON.parse(sessionStorage.getItem("user"));
+
+    const acesso = user.acesso;
+
+    document.querySelectorAll('.acesso-restrito').forEach(el => {
+        el.style.display = '';
+    });
+
+    document.querySelector('[data-page="users"]').style.display = '';
+
+    if(acesso === 'professor'){
+        document.querySelectorAll('.acesso-restrito').forEach(el => {
+            el.style.display = 'none';
+        })
+    }   
+
+    if(acesso !== 'admin'){
+
+        document.querySelector('[data-page="users"]').style.display = 'none';
+    }
+
+    document.getElementById('nome-user').textContent = user.nome;
 }
 
 async function tentarLogin() {
@@ -34,6 +66,7 @@ async function tentarLogin() {
             document.getElementById('login-senha').value = '';
             return;
         }
+
 
         sessionStorage.setItem('token', dados.token);
         sessionStorage.setItem('user', JSON.stringify(dados.user)); 
@@ -75,7 +108,7 @@ document.getElementById('login-senha').addEventListener('keydown', (e) => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    if (sessionStorage.getItem('logado') === 'true') {
+    if (sessionStorage.getItem('token') === 'true') {
         iniciarSistema();
     }
 });

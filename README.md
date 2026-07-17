@@ -4,7 +4,9 @@ Sistema web de gerenciamento escolar desenvolvido para cadastro de alunos, turma
 
 ## Funcionalidades
 
-* Cadastro de alunos e turmas
+* Sistema de autenticação real no back-end
+* Controle de permissões
+* Cadastro de alunos, turmas e usuários
 * Consulta de registros
 * Atualização de dados
 * Exclusão de registros
@@ -39,6 +41,12 @@ Sistema web de gerenciamento escolar desenvolvido para cadastro de alunos, turma
 ### login
 
 ![Tela de Login](assets/login.png)
+
+### Usuários
+
+![User-admin](assets/user-admin.gif)
+
+![User-professor](assets/user-professor.gif)
 
 ### Dashboard
 
@@ -97,6 +105,20 @@ http://localhost:3000
 
 ## Endpoints da API
 
+### Login
+
+POST /login
+
+### Usuários
+
+GET /users
+
+POST /users
+
+PUT /users
+
+DELETE /users
+
 ### Alunos
 
 GET /alunos
@@ -130,13 +152,12 @@ GET /mensagens
 POST /mensagens
 
 ## Melhorias Futuras
-
-* Sistema de autenticação  
-* Controle de permissões
-* Dashboard com gráficos e relatórios
 * Deploy do sistema em ambiente online
-
-O sistema conta com autenticação front-end simples. Tenho conhecimento das limitações dessa abordagem e das melhorias necessárias para produção, como JWT, bcrypt e proteção das rotas no back-end
+* HTTPS em produção
+* Dashboard com gráficos e relatórios
+* Melhorias de interface 
+* Uso de APIs externas
+* Chat online
 
 ## 👨‍💻 Autor
 
@@ -157,7 +178,10 @@ Durante o desenvolvimento deste projeto foram aplicados conceitos de:
 - Arquitetura MVC
 - API REST
 - CRUD completo
+- Middleware para proteção de cada rota individualmente no back-end
 - Integração Front-end e Back-end
+- Criptografia de senhas com bcrypt
+- Token JWT
 - Modelagem de Banco de Dados
 - Relacionamentos SQL
 - Versionamento com Git e GitHub

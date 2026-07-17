@@ -5,8 +5,10 @@ const cors = require('cors');
 require('./config/db');
 
 const authRoutes = require('./routes/authRoutes');
-
+ 
 const autenticar = require('./middlewares/autenticar');
+
+const userRoutes = require('./routes/userRoutes');  
 
 const alunoRoutes = require('./routes/alunoRoutes');
 
@@ -25,6 +27,8 @@ app.use(express.json());
 app.use(authRoutes);
 
 app.use(autenticar);
+
+app.use(userRoutes);
 
 app.use(alunoRoutes);
 

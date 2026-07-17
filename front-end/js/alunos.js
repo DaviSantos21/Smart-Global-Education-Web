@@ -39,12 +39,12 @@ async function carregarAlunos(){
                     <td data-label="Email">${aluno.email}</td>
                     <td data-label="Idade">${aluno.idade}</td>
                     <td data-label="Ações">
-                        <button
+                        <button class="acesso-restrito"
                             aria-label="Editar aluno ${aluno.nome}"
                             onclick="abrirEditor(${aluno.id}, '${aluno.nome}', '${aluno.email}', '${aluno.data_nascimento}')">
                             ✏️
                         </button>
-                        <button
+                    <button class="acesso-restrito"
                             aria-label="Excluir aluno ${aluno.nome}"
                             onclick="excluirAluno(${aluno.id})">
                             🗑️

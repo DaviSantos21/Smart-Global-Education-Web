@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const user = require('../models/userModel');
+const User = require('../models/userModel');
 
 const authController = {
 
@@ -12,7 +12,7 @@ const authController = {
             return res.status(400).json({erro: 'Email e senha são obrigatórios'});
         }
 
-        user.buscarPorEmail(email, async (erro, resultados) => {
+        User.buscarPorEmail(email, async (erro, resultados) => {
 
             if(erro){
                 return res.status(500).json({erro: 'Erro interno'});
