@@ -3,7 +3,7 @@ const conexao = require('../config/db');
 const User = {
 
     listar: (callback) => {
-        const sql = 'SELECT nome, email, acesso, cadastro FROM users';
+        const sql = 'SELECT id, nome, email, acesso, cadastro FROM users';
         conexao.query(sql, callback);
     },
 
