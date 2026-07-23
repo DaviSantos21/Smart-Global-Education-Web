@@ -101,7 +101,7 @@ CREATE TABLE `users` (
   `nome` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `senha` varchar(255) NOT NULL,
-  `acesso` enum('admin','secretary','professor') DEFAULT 'secretary',
+  `acesso` enum('admin','secretaria','professor') DEFAULT 'professor',
   `cadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
