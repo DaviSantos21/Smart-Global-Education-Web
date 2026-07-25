@@ -20,7 +20,13 @@ const mensagemRoutes = require('./routes/mensagemRoutes');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: ['http://127.0.0.1:5500/front-end/index.html',
+        'https://smart-global-education-web.vercel.app'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 
