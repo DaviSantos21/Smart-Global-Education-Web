@@ -1,3 +1,5 @@
+API_ONLINE = "https://sgew-production.up.railway.app"
+
 function mostrar(id){
 
     document.querySelectorAll('.page')

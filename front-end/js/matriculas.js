@@ -1,4 +1,4 @@
-const API_MATRICULAS = 'http://localhost:3000/matriculas';
+const API_MATRICULAS = `${API_ONLINE}/matriculas`;
 
 async function carregarSelects(){
 
@@ -8,8 +8,8 @@ async function carregarSelects(){
     try {
 
         const [alunosResp, turmasResp] = await Promise.all([
-            fetchAutenticado('http://localhost:3000/alunos'),
-            fetchAutenticado('http://localhost:3000/turmas')
+            fetchAutenticado(`${API_ONLINE}/alunos`),
+            fetchAutenticado(`${API_ONLINE}/turmas`)
         ]);
 
         if (!alunosResp.ok || !turmasResp.ok) {

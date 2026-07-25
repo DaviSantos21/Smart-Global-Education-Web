@@ -1,4 +1,4 @@
-const API_MENSAGENS = 'http://localhost:3000/mensagens';
+const API_MENSAGENS = `${API_ONLINE}/mensagens`;
 
 document.getElementById('form-mensagem').addEventListener('submit', async (event) => {
 

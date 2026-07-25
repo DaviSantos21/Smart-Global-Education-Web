@@ -1,4 +1,4 @@
-const API_TURMAS = 'http://localhost:3000/turmas';
+const API_TURMAS = `${API_ONLINE}/turmas`;
 
 const formTurma = document.getElementById('form-turma');
 

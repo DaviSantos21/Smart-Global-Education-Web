@@ -1,4 +1,4 @@
-const API_USERS = 'http://localhost:3000/users';
+const API_USERS = `${API_ONLINE}/users`;
 
 async function carregarUsers() {
 
