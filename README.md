@@ -1,10 +1,20 @@
 # Smart Global Education Web
 
+* ![Deploy online](https://img.shields.io/badge/Deploy-Online-white)
+* ![Front-end Vercel](https://img.shields.io/badge/Frontend-Vercel-orange) 
+* ![Back-end Railway](https://img.shields.io/badge/Backend-Railway-purple)
+* ![License](https://img.shields.io/badge/License-MIT-black)
+
+
 Sistema web de gerenciamento escolar desenvolvido para cadastro de alunos, turmas e matrículas, utilizando arquitetura cliente-servidor com API REST. O projeto foi desenvolvido com Node.js, Express e MySQL no back-end, além de HTML, CSS e JavaScript no front-end.
+
+🌐 Acesse o sistema 
+
+https://smart-global-education-web.vercel.app
 
 ## Funcionalidades
 
-* Sistema de autenticação real no back-end
+* Sistema de autenticação real no back-end com JWT
 * Controle de permissões
 * Cadastro de alunos, turmas e usuários
 * Consulta de registros
@@ -13,21 +23,30 @@ Sistema web de gerenciamento escolar desenvolvido para cadastro de alunos, turma
 * Sistema de matrícula
 * Integração entre Front-end e Back-end
 * API REST
+* Deploy do sistema em ambiente online
+
+
 
 ## Tecnologias Utilizadas
 
 ### Back-end
 
 * ![Node.js](https://img.shields.io/badge/Node.js-22.x-green)
-* ![Express](https://img.shields.io/badge/Express-Framework-black)
+* ![Express](https://img.shields.io/badge/Express-Framework-yellow)
 * ![MySQL](https://img.shields.io/badge/MySQL-Database-blue)
-* ![License](https://img.shields.io/badge/License-MIT-yellow)
+* ![bcrypt](https://img.shields.io/badge/bcrypt-Criptografia-red)
+* ![Auth JWT](https://img.shields.io/badge/Auth-JWT-pink) 
 
 ### Front-end
 
 * HTML5
 * CSS3
 * JavaScript
+
+### Hospedagem
+
+* Railway (back-end + banco de dados)
+* Vercel (front-end)
 
 ### Ferramentas
 
@@ -72,7 +91,7 @@ Sistema web de gerenciamento escolar desenvolvido para cadastro de alunos, turma
 
 ![Mensagens](assets/mensagens.png)
 
-## Como Executar
+## Como Executar Localmente
 
 ### 1. Clonar o repositório
 
@@ -94,7 +113,18 @@ Diagrama do banco de dados
 
 ![Diagrama](assets/diagrama-banco.png)
 
-### 5. Iniciar servidor
+### 5. Configurar variáveis de ambiente
+
+Renomeie .env.example para .env e preencha com suas credencias:
+
+DB_HOST=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+DB_PORT=
+JWT_SECRET=
+
+### 6. Iniciar servidor
 
 npm run dev
 
@@ -115,9 +145,9 @@ GET /users
 
 POST /users
 
-PUT /users
+PUT /users/:id
 
-DELETE /users
+DELETE /users/:id
 
 ### Alunos
 
@@ -152,12 +182,13 @@ GET /mensagens
 POST /mensagens
 
 ## Melhorias Futuras
-* Deploy do sistema em ambiente online
+
+* API de e-mail para envio de notificações
+* Foto de perfil com Cloudinary
+* Dashboard com gráficos (Chart.js)
+* Configurações do sistema
 * HTTPS em produção
-* Dashboard com gráficos e relatórios
-* Melhorias de interface 
-* Uso de APIs externas
-* Chat online
+* Melhorias de interface
 
 ## 👨‍💻 Autor
 
@@ -179,10 +210,14 @@ Durante o desenvolvimento deste projeto foram aplicados conceitos de:
 - API REST
 - CRUD completo
 - Middleware para proteção de cada rota individualmente no back-end
+- Níveis de acesso por perfil de usuário
 - Integração Front-end e Back-end
 - Criptografia de senhas com bcrypt
-- Token JWT
+- Autenticação com token JWT
 - Modelagem de Banco de Dados
 - Relacionamentos SQL
 - Versionamento com Git e GitHub
 - Manipulação de requisições HTTP
+- Deploy em ambiente de produção (Railway + Vercel)
+- Configuração de CORS para múltiplos ambientes
+- Detecção automática de ambiente (local vs produção)
