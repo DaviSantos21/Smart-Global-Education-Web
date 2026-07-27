@@ -12,6 +12,18 @@ Sistema web de gerenciamento escolar desenvolvido para cadastro de alunos, turma
 
 https://smart-global-education-web.vercel.app
 
+## 🔑 Credenciais de Demonstração
+
+Para testar a aplicação, utilize as seguintes credenciais:
+
+| Campo | Valor |
+|-------|-------|
+| **Usuário** | `visitante@sgew.com` |
+| **Senha** | `sgew2025` |
+| **Nível de acesso** | `Secretaria` |
+
+> **Observação:** Essas credenciais são destinadas exclusivamente para fins de demonstração e avaliação da aplicação.
+
 ## Funcionalidades
 
 * Sistema de autenticação real no back-end com JWT
