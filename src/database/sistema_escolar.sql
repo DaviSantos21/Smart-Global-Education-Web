@@ -49,8 +49,8 @@ CREATE TABLE `matriculas` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_aluno_turma` (`alunoId`,`turmaId`),
   KEY `turmaId` (`turmaId`),
-  CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`alunoId`) REFERENCES `alunos` (`id`),
-  CONSTRAINT `matriculas_ibfk_2` FOREIGN KEY (`turmaId`) REFERENCES `turmas` (`id`)
+  CONSTRAINT `fk_matriculas_alunos` FOREIGN KEY (`alunoId`) REFERENCES `alunos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_matriculas_turmas` FOREIGN KEY (`turmaId`) REFERENCES `turmas` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
