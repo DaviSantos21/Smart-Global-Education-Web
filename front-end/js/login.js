@@ -108,7 +108,7 @@ document.getElementById('login-senha').addEventListener('keydown', (e) => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    if (sessionStorage.getItem('token') === 'true') {
+    if (sessionStorage.getItem('token')) {
         iniciarSistema();
     }
 });
